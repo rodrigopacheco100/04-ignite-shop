@@ -16,10 +16,13 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
     "@types/node": "18.7.18",
     "@types/react": "18.0.20",
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "@typescript-eslint/parser": "^5.38.0",
+    "commitlint": "^17.1.2",
     "eslint": "8.23.1",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "12.3.1",
