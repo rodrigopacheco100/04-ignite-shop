@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import { Html, Head, Main, NextScript } from 'next/document'
 
-import { getCssText } from '../styles'
+import { getCssText } from '../styles/config'
 
 export default function Document() {
   return (

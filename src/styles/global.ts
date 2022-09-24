@@ -1,4 +1,4 @@
-import { globalCss } from '.'
+import { globalCss } from './config'
 
 export const globalStyles = globalCss({
   '*': {
