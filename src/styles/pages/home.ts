@@ -8,7 +8,7 @@ export const HomeContainer = styled('main', {
   minHeight: 656
 })
 
-export const Product = styled('a', {
+export const Product = styled('div', {
   position: 'relative',
 
   background: 'linear-gradient(180deg, #1EA483 0%, #7465D4 100%)',
