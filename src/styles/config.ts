@@ -11,7 +11,8 @@ export const { config, styled, css, globalCss, keyframes, getCssText, theme, cre
       gray100: '#e1e1e6',
 
       green500: '#00875f',
-      green300: '#00b37e'
+      green300: '#00b37e',
+      productBackground: 'linear-gradient(180deg, #1EA483 0%, #7465D4 100%)'
     },
     fontSizes: {
       md: '1.125rem',

@@ -11,7 +11,7 @@ export const HomeContainer = styled('main', {
 export const Product = styled('div', {
   position: 'relative',
 
-  background: 'linear-gradient(180deg, #1EA483 0%, #7465D4 100%)',
+  background: '$productBackground',
   borderRadius: 8,
   cursor: 'pointer',
   overflow: 'hidden',
