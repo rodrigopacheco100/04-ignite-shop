@@ -1,5 +1,7 @@
+import axios from 'axios'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import Image from 'next/future/image'
+import { useState } from 'react'
 import Stripe from 'stripe'
 
 import { stripe } from '~/lib/stripe'
@@ -9,6 +11,7 @@ type Product = {
   id: string
   name: string
   price: string
+  priceId: string
   image: string
   description: string
 }
@@ -22,6 +25,26 @@ type ProductParams = {
 }
 
 export default function Product({ product }: ProductProps) {
+  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
+
+  async function handleBuyProduct() {
+    try {
+      setIsCreatingCheckoutSession(true)
+
+      const response = await axios.post('/api/checkout', {
+        priceId: product.priceId
+      })
+
+      const { checkoutUrl } = response.data
+
+      window.location.href = checkoutUrl
+    } catch (error) {
+      alert('Falha ao redirecionar para checkout')
+    } finally {
+      setIsCreatingCheckoutSession(false)
+    }
+  }
+
   return (
     <ProductContainer>
       <ImageContainer>
@@ -33,7 +56,9 @@ export default function Product({ product }: ProductProps) {
 
         <p>{product.description}</p>
 
-        <button type="button">Comprar agora</button>
+        <button disabled={isCreatingCheckoutSession} type="button" onClick={handleBuyProduct}>
+          Comprar agora
+        </button>
       </ProductDetails>
     </ProductContainer>
   )
@@ -53,6 +78,8 @@ export const getStaticProps: GetStaticProps<ProductProps, ProductParams> = async
     expand: ['default_price']
   })
 
+  const price = product.default_price as Stripe.Price
+
   return {
     props: {
       product: {
@@ -60,10 +87,11 @@ export const getStaticProps: GetStaticProps<ProductProps, ProductParams> = async
         name: product.name,
         image: product.images[0],
         description: product.description,
+        priceId: price.id,
         price: new Intl.NumberFormat('pt-BR', {
           style: 'currency',
           currency: 'BRL'
-        }).format((product.default_price as Stripe.Price).unit_amount / 100)
+        }).format(price.unit_amount / 100)
       }
     },
     revalidate: 60 * 60 * 1 // 1 hour
